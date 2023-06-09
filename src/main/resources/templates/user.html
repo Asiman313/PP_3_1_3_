@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Показать юзера по ID</title>
+    <style>
+        table {
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table {
+           th:border="4"
+           th:width="300" }>
+        <br>
+        <h1 style="text-align: center">Выбранный пользователь</h1>
+        <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+            <th>Логин</th>
+        </tr>
+
+        <td th:text="${user.getId}"/>
+        <td th:text="${user.getName}"/>
+        <td th:text="${user.getLastName()}"/>
+        <td th:text="${user.getAge}"/>
+        <td th:text="${user.getUsername()}"/>
+        </tr>
+    </table>
+
+</div>
+<br>
+<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+    <form action="/admin" target="_self">
+        <button>Возврат к списку пользователей</button>
+    </form>
+    <br>
+    <br>
+</div>
+<form th:action="@{/logout}" th:method="POST" target="_self">
+    <button>Выход</button>
+</form>
+
+</body>
+</html>

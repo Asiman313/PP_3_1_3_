@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+</head>
+<style>
+  table {
+    margin: auto;
+  }
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+</style>
+
+<body>
+<div th:if="${error}" class="error-message">
+  <p th:text="${error}"></p>
+</div>
+
+
+
+<h1 style="text-align: center">Добавление пользователя</h1>
+
+<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+  <label for="name">Введите имя: </label>
+  <input type="text" th:field="*{name}" id="name" required/>
+  <br/>
+  <br/>
+  <label for="surname">Введите фамилию: </label>
+  <input type="text" th:field="*{lastName}" id="surname" required/>
+  <br/>
+  <br/>
+  <label for="age">Введите возраст: </label>
+  <input type="number" th:field="*{age}" id="age" min="12" required/>
+  <br/>
+  <br/>
+  <label for="username">Введите логин: </label>
+  <input type="text" th:field="*{userName}" id="username" required/>
+  <br/>
+  <br/>
+  <label for="password">Введите пароль: </label>
+  <input type="text" th:field="*{password}" id="password" required/>
+  <br/>
+  <br/>
+  <label>Права доступа:
+    <select id="role-select" required class="form-control" th:field="*{role}" multiple="multiple" >
+      <option th:each="r : ${rolesAdd}"
+              th:field="*{role}"
+              th:value="${r.id}"
+              th:text="${r.role}">Role name
+      </option>
+    </select>
+  </label>
+  <br/>
+  <br/>
+  <input type="submit" value="Создать"/>
+</form>
+
+</body>
+</html>
